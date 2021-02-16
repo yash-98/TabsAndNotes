@@ -1,14 +1,15 @@
 let btnAlert = document.getElementById('sendAlert');
 let listRadio = document.getElementsByName('listType');
 let tabList = document.getElementById('tabList');
+let alertTabMessage = document.getElementById('alertText');
 
 var tabNum;
 var tabsArray;
 var tabSelected;
 
-document.addEventListener('DOMContentLoaded', postContentLoad, false);
+document.addEventListener('DOMContentLoaded', postContentLoadAlert, false);
 
-function postContentLoad () {
+function postContentLoadAlert () {
 
     chrome.tabs.query({currentWindow: true}, function (tabs){
         tabsArray = tabs;
@@ -22,13 +23,12 @@ function postContentLoad () {
     });
 };
 
-function onclick (){  
-    tabSelected = parseInt(tabList.value) - 1; 
-    chrome.tabs.sendMessage(tabsArray[tabSelected].id, "The Data has been sent as an alert.");
-};
-
 function createTabList (){
     var i;
+    
+    while(tabList.options.length > 0){
+        tabList.options.remove(0);
+    }
     
     for(i = 0; i < tabsArray.length; i++) {
 
@@ -40,4 +40,12 @@ function createTabList (){
 
         tabList.appendChild(optionVal);
     }
+};
+
+function onclick (){  
+    tabSelected = parseInt(tabList.value) - 1; 
+    chrome.tabs.sendMessage(tabsArray[tabSelected].id,{
+        type: "alert",
+        value: alertTabMessage.value
+    });
 };
