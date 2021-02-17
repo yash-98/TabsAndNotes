@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Tabs And Notes</title>
+    </head>
+    <body>
+
+        <div class="container">
+            <div class="notes-container">
+
+                <label for="notesText">Note:</label>
+                <textarea name = "note" id="notesText" rows = "10" cols="20">Quick Notes</textarea>
+            </div>
+            
+            <div class="alert-tab-container">
+    
+                <div class="alertMessage">
+                    <label for="alertText">Please Enter the Message Here:</label>
+                    <textarea name = "message" id="alertText" rows="5" cols="20">Message</textarea>
+                </div>
+    
+                <div class="tabSelect">
+    
+                    <div class="list-type-container">
+                        <label>List Of Tabs By: </label>
+                        <div class="list-type-option">
+                            <input type="radio" class="listRadio" id="number" name="listType"/>
+                            <label for="number">Number</label>
+                        </div>
+        
+                        <!--
+                        <div class="list-type-option">
+                            <input type="radio" class="listRadio" id="name" name="listType"/>
+                            <label for="name">Name</label>
+                        </div>
+                        -->
+                    </div>
+        
+                    <label>Choose One:</label>
+                    <select id="tabList"></select>
+        
+                    <button id="sendAlert">Send Alert</button>
+                </div>
+            </div>
+        </div>
+        <script src="chromeBugfix.js" charset="UTF-8"></script>
+        <script src="alertTab.js" charset="UTF-8"></script>
+        <script src="notesTab.js" charset="UTF-8"></script>
+    </body>
+</html>
