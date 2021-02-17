@@ -2,21 +2,27 @@ let noteText = document.getElementById('notesText');
 
 document.addEventListener('DOMContentLoaded', postContentLoadNote, false);
 
-function postContentLoadNote () {
+function postContentLoadNote() {
 
-    const bg = chrome.extension.getBackgroundPage();
-    
-    if(bg.note != null){
-        noteText.value = bg.note;
-    }
+    chrome.runtime.getBackgroundPage(function(bg) {
+        if (bg.note) {
+            noteText.value = bg.note;
+        }
+        setInterval(function() {
+            bg.note = noteText.value
+        }, 1000);
+    })
 
-    noteText.addEventListener('change', updateNotes);
-    
+    //noteText.addEventListener('change', updateNotes);
+
 };
 
-function updateNotes () {
-    chrome.tabs.sendMessage({
-        type: "notes",
-        value: noteText.value
+function updateNotes() {
+
+    chrome.tabs.query({ active: true, currentWindow: true }, function(tabs) {
+        chrome.tabs.sendMessage(tabs[0].id, {
+            type: "notes",
+            value: noteText.value
+        });
     });
 }

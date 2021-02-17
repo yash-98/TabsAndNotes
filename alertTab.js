@@ -9,9 +9,9 @@ var tabSelected;
 
 document.addEventListener('DOMContentLoaded', postContentLoadAlert, false);
 
-function postContentLoadAlert () {
+function postContentLoadAlert() {
 
-    chrome.tabs.query({currentWindow: true}, function (tabs){
+    chrome.tabs.query({ currentWindow: true }, function(tabs) {
         tabsArray = tabs;
         tabNum = tabs.length;
     });
@@ -23,28 +23,28 @@ function postContentLoadAlert () {
     });
 };
 
-function createTabList (){
+function createTabList() {
     var i;
-    
-    while(tabList.options.length > 0){
+
+    while (tabList.options.length > 0) {
         tabList.options.remove(0);
     }
-    
-    for(i = 0; i < tabsArray.length; i++) {
+
+    for (i = 0; i < tabsArray.length; i++) {
 
         var optionVal;
-        
-        if(listRadio[0].checked){
-            optionVal = new Option((i+1), (i+1));
+
+        if (listRadio[0].checked) {
+            optionVal = new Option((i + 1), (i + 1));
         }
 
         tabList.appendChild(optionVal);
     }
 };
 
-function onclick (){  
-    tabSelected = parseInt(tabList.value) - 1; 
-    chrome.tabs.sendMessage(tabsArray[tabSelected].id,{
+function onclick() {
+    tabSelected = parseInt(tabList.value) - 1;
+    chrome.tabs.sendMessage(tabsArray[tabSelected].id, {
         type: "alert",
         value: alertTabMessage.value
     });

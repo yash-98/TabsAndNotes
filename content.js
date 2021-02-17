@@ -1,3 +1,5 @@
-chrome.runtime.onMessage.addListener(function (request) {
-    alert(request.value)
+chrome.runtime.onMessage.addListener(function(request) {
+    if (request.type === "alert") {
+        alert(request.value);
+    }
 })
